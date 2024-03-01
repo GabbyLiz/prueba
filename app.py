@@ -29,7 +29,10 @@ st.write("Ruta completa del archivo:", ruta_archivo)
 # Intentar cargar el modelo directamente desde el archivo HDF5
 try:
     st.info('Cargando el modelo...')
-    with h5py.File(nombre_archivo_local, 'r') as file:
+    with h5py.File(ruta_archivo, 'r') as file:
         st.success('Modelo cargado exitosamente.')
+        # Aquí, puedes acceder a las capas y demás información del modelo si es necesario
+        # Por ejemplo: capa_input = file['input_layer_name']
+        # Pero, por ahora, solo mostraremos un mensaje de éxito
 except Exception as e:
     st.error(f'Error al cargar el modelo: {str(e)}')

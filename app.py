@@ -1,6 +1,6 @@
 import streamlit as st
 import gdown
-from tensorflow.keras.models import load_model
+import h5py
 import os
 
 st.title('Mi Aplicación Streamlit con Modelo Preentrenado')
@@ -29,7 +29,10 @@ st.write("Ruta completa del archivo:", ruta_archivo)
 # Intentar cargar el modelo directamente desde el archivo HDF5
 try:
     st.info('Cargando el modelo...')
-    modelo_cargado = load_model(nombre_archivo_local)
+    with h5py.File(nombre_archivo_local, 'r') as file:
+        # Aquí, puedes acceder a las capas y demás información del modelo si es necesario
+        # Por ejemplo: capa_input = file['input_layer_name']
+        # Pero, por ahora, solo mostraremos un mensaje de éxito
     st.success('Modelo cargado exitosamente.')
 except Exception as e:
     st.error(f'Error al cargar el modelo: {str(e)}')

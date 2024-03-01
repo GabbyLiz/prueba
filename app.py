@@ -1,38 +1,29 @@
 import streamlit as st
 import gdown
+from tensorflow.keras.models import load_model
 import os
 
-# Enlace directo al archivo compartido en Google Drive (reemplaza con tu enlace)
-google_drive_url = "https://drive.google.com/uc?id=1uiJR1cD2W1cNVpqG77Th6XHhWSxuEVwW"
+# Enlace compartido de Google Drive al archivo HDF5 (reemplaza 'your_file_id')
+enlace_google_drive = 'https://drive.google.com/uc?id=your_file_id'
 
-# Función para descargar y almacenar en caché el modelo
-@st.cache(suppress_st_warning=True)
-def descargar_y_cargar_modelo(url, nombre_archivo):
-    # Descargar el modelo desde Google Drive
-    st.text(f"Descargando modelo desde {url}...")
-    gdown.download(url, nombre_archivo, quiet=False)
+# Nombre del archivo HDF5 local
+nombre_archivo_local = 'modelo.hdf5'
 
-    # Cargar el modelo utilizando la biblioteca correspondiente (reemplaza según tu modelo)
-    # Ejemplo con TensorFlow / Keras:
-    from tensorflow.keras.models import load_model
-    modelo = load_model(nombre_archivo)
+# Descargar el archivo desde Google Drive
+with st.spinner('Descargando modelo HDF5...'):
+    gdown.download(enlace_google_drive, nombre_archivo_local)
+    st.success('Modelo HDF5 descargado correctamente.')
 
-    # Retornar el modelo
-    return modelo
+# Cargar el modelo desde el archivo HDF5
+modelo_cargado = load_model(nombre_archivo_local)
 
-# Función para obtener el peso del archivo descargado
-def obtener_peso_del_archivo(archivo):
-    return os.path.getsize(archivo)
+# Mostrar información sobre el modelo
+st.title('Mi Aplicación Streamlit con Modelo Preentrenado')
+st.write('Información sobre el modelo:')
+st.write(modelo_cargado.summary())
 
-# Nombre del archivo a descargar y cargar
-nombre_archivo = "modelo.hdf5"
+# Realizar predicciones, etc., según sea necesario con el modelo cargado
+# ...
 
-# Botón en Streamlit para iniciar la descarga y carga del modelo
-if st.button("Descargar y Cargar Modelo desde Google Drive"):
-    # Llamada a la función para descargar y cargar el modelo
-    modelo_cargado = descargar_y_cargar_modelo(google_drive_url, nombre_archivo)
-    st.success("Descarga y carga del modelo exitosas.")
-
-    # Mostrar el peso del archivo descargado
-    peso_del_archivo = obtener_peso_del_archivo(nombre_archivo)
-    st.text(f"Peso del archivo descargado: {peso_del_archivo} bytes.")
+# Eliminar el archivo HDF5 después de su uso (opcional)
+os.remove(nombre_archivo_local)

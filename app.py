@@ -8,4 +8,6 @@ enlace_google_drive = 'https://drive.google.com/uc?id=1uiJR1cD2W1cNVpqG77Th6XHhW
 
 # Nombre del archivo HDF5 local
 nombre_archivo_local = 'modelo.hdf5'
-st.success("Ruta completa del archivo:", os.path.abspath(ruta_archivo))
+gdown.download(enlace_google_drive, nombre_archivo_local)
+st.success('Modelo HDF5 descargado correctamente.')
+st.write("Ruta completa del archivo:", os.path.abspath(ruta_archivo))

@@ -22,11 +22,9 @@ if not os.path.isfile(nombre_archivo_local):
 else:
     st.info('El modelo ya está descargado.')
 
-# Obtener la ruta del directorio actual de la aplicación
-ruta_directorio = os.path.dirname(os.path.realpath(__file__))
-
-# Obtener la ruta completa del archivo
-ruta_archivo = os.path.join(ruta_directorio, nombre_archivo_local)
+# Obtener la ruta del directorio compartido de Streamlit Cloud
+streamlit_shared_dir = os.environ.get("STREAMLIT_SHARED_DIR", "/streamlit")
+ruta_archivo = os.path.join(streamlit_shared_dir, nombre_archivo_local)
 st.write("Ruta completa del archivo:", ruta_archivo)
 
 # Intentar cargar el modelo directamente desde el archivo HDF5
@@ -37,6 +35,5 @@ try:
         # Aquí, puedes acceder a las capas y demás información del modelo si es necesario
         # Por ejemplo: capa_input = file['input_layer_name']
         # Pero, por ahora, solo mostraremos un mensaje de éxito
-    
 except Exception as e:
     st.error(f'Error al cargar el modelo: {str(e)}')

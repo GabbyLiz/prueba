@@ -3,7 +3,7 @@ import gdown
 import os
 
 # Enlace directo al archivo compartido en Google Drive (reemplaza con tu enlace)
-google_drive_url = "https://drive.google.com/file/d/1uiJR1cD2W1cNVpqG77Th6XHhWSxuEVwW/view?usp=drive_link"
+google_drive_url = "https://drive.google.com/uc?id=1uiJR1cD2W1cNVpqG77Th6XHhWSxuEVwW"
 
 # Función para descargar y almacenar en caché el modelo
 @st.cache(suppress_st_warning=True)

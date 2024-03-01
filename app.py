@@ -1,6 +1,7 @@
 import streamlit as st
 import gdown
 from tensorflow.keras.models import load_model
+import os
 
 st.title('Mi Aplicación Streamlit con Modelo Preentrenado')
 
@@ -11,7 +12,7 @@ enlace_google_drive = 'https://drive.google.com/uc?id=1uiJR1cD2W1cNVpqG77Th6XHhW
 nombre_archivo_local = 'modelo.hdf5'
 
 # Comprobar si el modelo ya está descargado
-if not st.file_uploader("Cargar modelo", type=["h5"]):
+if not os.path.isfile(nombre_archivo_local):
     st.info('Descargando el modelo...')
     try:
         gdown.download(enlace_google_drive, nombre_archivo_local, quiet=False)

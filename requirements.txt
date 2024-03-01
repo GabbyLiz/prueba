@@ -1,5 +1,5 @@
-streamlit==1.19.0
 gdown==4.0.2
 tensorflow==2.8.0
 h5py==3.7.0
-numpy==1.19.5
+numpy
+streamlit

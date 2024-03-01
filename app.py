@@ -14,8 +14,8 @@ def descargar_y_cargar_modelo(url, nombre_archivo):
 
     # Cargar el modelo utilizando la biblioteca correspondiente (reemplaza según tu modelo)
     # Ejemplo con TensorFlow / Keras:
-    # from tensorflow.keras.models import load_model
-    # modelo = load_model(nombre_archivo)
+    from tensorflow.keras.models import load_model
+    modelo = load_model(nombre_archivo)
 
     # Retornar el modelo
     return modelo
@@ -30,7 +30,7 @@ nombre_archivo = "modelo.hdf5"
 # Botón en Streamlit para iniciar la descarga y carga del modelo
 if st.button("Descargar y Cargar Modelo desde Google Drive"):
     # Llamada a la función para descargar y cargar el modelo
-    modelo = descargar_y_cargar_modelo(google_drive_url, nombre_archivo)
+    modelo_cargado = descargar_y_cargar_modelo(google_drive_url, nombre_archivo)
     st.success("Descarga y carga del modelo exitosas.")
 
     # Mostrar el peso del archivo descargado

@@ -22,6 +22,10 @@ if not os.path.isfile(nombre_archivo_local):
 else:
     st.info('El modelo ya está descargado.')
 
+# Obtener la ruta completa del archivo
+ruta_archivo = os.path.abspath(nombre_archivo_local)
+st.write("Ruta completa del archivo:", ruta_archivo)
+
 # Intentar cargar el modelo directamente desde el archivo HDF5
 try:
     st.info('Cargando el modelo...')

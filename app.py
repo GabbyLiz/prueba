@@ -32,8 +32,8 @@ try:
     st.info('Cargando el modelo...')
     with h5py.File(ruta_archivo, 'r') as file:
         st.success('Modelo cargado exitosamente.')
-        # Aquí, puedes acceder a las capas y demás información del modelo si es necesario
-        # Por ejemplo: capa_input = file['input_layer_name']
-        # Pero, por ahora, solo mostraremos un mensaje de éxito
+        # Accede a las capas y otra información del modelo si es necesario
+        # Ejemplo: capa_input = file['input_layer_name']
+    
 except Exception as e:
     st.error(f'Error al cargar el modelo: {str(e)}')

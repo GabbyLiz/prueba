@@ -13,7 +13,7 @@ if not os.path.exists(nombre_archivo_local):
     st.success('Modelo HDF5 descargado correctamente.')
 
 ruta_archivo = "modelo.hdf5"
-ruta_completa = os.path.join(os.environ["STREAMLIT_SHAREDCONTEXT"], ruta_archivo)
+ruta_completa = os.path.join(os.path.dirname(__file__), ruta_archivo)
 
 st.write("Ruta completa del archivo:", ruta_completa)
 

@@ -1,6 +1,6 @@
-gdown
 tensorflow==1.13.1
-h5py==3.7.0
-protobuf==3.20.0
-numpy==1.16.1
+gdown
+h5py
+protobuf
+numpy
 streamlit

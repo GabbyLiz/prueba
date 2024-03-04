@@ -1,32 +1,36 @@
 import streamlit as st
-from tensorflow.keras.models import load_model
-import gdown
-import requests
-from io import BytesIO
-import tempfile
-import os
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
-st.title('Mi Aplicación Streamlit con Modelo Preentrenado')
+# Crear un modelo Keras simple (sin entrenar)
+def create_model():
+    model = Sequential()
+    model.add(Dense(units=1, input_dim=1, activation='linear'))
+    model.compile(optimizer='adam', loss='mean_squared_error')
+    return model
 
-# Enlace compartido de Google Drive al archivo HDF5 (reemplaza 'your_file_id')
-enlace_google_drive = 'https://drive.google.com/uc?id=1uiJR1cD2W1cNVpqG77Th6XHhWSxuEVwW'
+# Función para predecir el cuadrado y el cubo de un número
+def predict_numbers(model, number):
+    square = model.predict(tf.constant([number]))[0, 0] ** 2
+    cube = model.predict(tf.constant([number]))[0, 0] ** 3
+    return square, cube
 
-# Función para cargar el modelo desde Google Drive
-def cargar_modelo_desde_drive(enlace):
-    with st.spinner('Descargando el modelo...'):
-        response = requests.get(enlace)
-        temp_file = tempfile.NamedTemporaryFile(delete=False)
-        temp_file.write(response.content)
-        temp_file.close()
-        modelo_cargado = load_model(temp_file.name)
-        os.remove(temp_file.name)
-    return modelo_cargado
+# Streamlit UI
+st.title('Number Transformation App')
 
-# Cargar el modelo en tiempo real
-modelo_cargado = cargar_modelo_desde_drive(enlace_google_drive)
+# Crear el modelo
+model = create_model()
 
-# Hacer predicciones o cualquier otra cosa con el modelo cargado
-# ...
+# Entrada de usuario para el número
+number = st.number_input('Enter a number:', value=1.0, step=0.1)
 
-# Mostrar información sobre el modelo
-st.write("Modelo cargado exitosamente:", modelo_cargado.summary())
+# Botón para predecir
+if st.button('Predict'):
+    # Realizar la predicción
+    square, cube = predict_numbers(model, number)
+
+    # Mostrar los resultados
+    st.header('Results:')
+    st.write(f'Square of {number}: {square:.4f}')
+    st.write(f'Cube of {number}: {cube:.4f}')

@@ -1,4 +1,4 @@
-python==3.6.7
+python==3.7
 Numpy==1.16.1
 tensorflow==1.13.1
 Keras==2.2.4
